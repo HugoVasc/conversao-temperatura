@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meudeployment
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: myapp
+  template: #Copia dos dados do pod
+    metadata: # Remover name e adicionar labels e app: <name>
+      labels: 
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: hugovasc/conversao-temperatura:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+          - containerPort: 8080
